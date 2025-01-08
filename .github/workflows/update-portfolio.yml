@@ -23,24 +23,24 @@ jobs:
             jq -r '.[] | {name: .name, html_url: .html_url}' > repos.json
 
       - name: Fetch README Files
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: |
-          echo "My GitHub Portfolio" > README.md
-          echo "" >> README.md
-          jq -c '.[]' repos.json | while read repo; do
-            REPO_NAME=$(echo $repo | jq -r '.name')
-            REPO_URL=$(echo $repo | jq -r '.html_url')
-            README_URL="https://raw.githubusercontent.com/$GITHUB_REPOSITORY/$REPO_NAME/main/README.md"
-            
-            echo "## [$REPO_NAME]($REPO_URL)" >> README.md
-            echo "" >> README.md
-            
-            curl -s -H "Authorization: token $GH_TOKEN" $README_URL >> README.md || echo "README not found for $REPO_NAME" >> README.md
-            echo "" >> README.md
-            echo "---" >> README.md
-            echo "" >> README.md
-          done
+  env:
+    GH_TOKEN: ${{ secrets.GH_TOKEN }}
+  run: |
+    echo "# My GitHub Portfolio" > README.md
+    echo "" >> README.md
+    jq -c '.[] | {name: .name, html_url: .html_url}' repos.json | while read repo; do
+      REPO_NAME=$(echo $repo | jq -r '.name')
+      REPO_URL=$(echo $repo | jq -r '.html_url')
+      README_URL="https://raw.githubusercontent.com/username/$REPO_NAME/main/README.md"
+      
+      echo "## [$REPO_NAME]($REPO_URL)" >> README.md
+      echo "" >> README.md
+      
+      curl -s -H "Authorization: token $GH_TOKEN" $README_URL >> README.md || echo "README not found for $REPO_NAME" >> README.md
+      echo "" >> README.md
+      echo "---" >> README.md
+      echo "" >> README.md
+    done
 
       - name: Commit and Push Changes
         run: |
