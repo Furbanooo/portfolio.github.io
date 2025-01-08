@@ -26,7 +26,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          echo "# My GitHub Portfolio" > README.md
+          echo "My GitHub Portfolio" > README.md
           echo "" >> README.md
           jq -c '.[]' repos.json | while read repo; do
             REPO_NAME=$(echo $repo | jq -r '.name')
