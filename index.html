@@ -369,71 +369,7 @@
       <h2 class="section-title" >My Projects</h2>
       <div id="scene">
         <div id="left-zone">
-          <ul class="list">
-            <li class="item">
-              <input type="radio" id="radio_strawberry" name="basic_carousel" value="strawberry" checked="checked" />
-              <label class="label_strawberry" for="radio_strawberry">Strawberry</label>
-              <div class="content content_strawberry">
-                <span class="picto"></span>
-                <h1>Strawberry</h1>
-                <p>The garden strawberry is a widely grown hybrid species of the genus Fragaria.</p>
-              </div>
-            </li>
-            <li class="item">
-              <input type="radio" id="radio_banana" name="basic_carousel" value="banana" />
-              <label class="label_banana" for="radio_banana">Banana</label>
-              <div class="content content_banana">
-                <span class="picto"></span>
-                <h1>Banana</h1>
-                <p>A banana is an edible fruit, botanically a berry, produced by plants in the genus Musa.</p>
-              </div>
-            </li>
-            <li class="item">
-              <input type="radio" id="radio_apple" name="basic_carousel" value="apple" />
-              <label class="label_apple" for="radio_apple">Apple</label>
-              <div class="content content_apple">
-                <span class="picto"></span>
-                <h1>Apple</h1>
-                <p>The apple tree is a deciduous tree in the rose family, known for its sweet fruit.</p>
-              </div>
-            </li>
-            <li class="item">
-              <input type="radio" id="radio_orange" name="basic_carousel" value="orange" />
-              <label class="label_orange" for="radio_orange">Orange</label>
-              <div class="content content_orange">
-                <span class="picto"></span>
-                <h1>Orange</h1>
-                <p>The orange is the fruit of the citrus species Citrus × sinensis in the family Rutaceae.</p>
-              </div>
-            </li>
-            <li class="item">
-              <input type="radio" id="radio_orange" name="basic_carousel" value="orange" />
-              <label class="label_orange" for="radio_orange">Orange</label>
-              <div class="content content_orange">
-                <span class="picto"></span>
-                <h1>Orange</h1>
-                <p>The orange is the fruit of the citrus species Citrus × sinensis in the family Rutaceae.</p>
-              </div>
-            </li>
-            <li class="item">
-              <input type="radio" id="radio_orange" name="basic_carousel" value="orange" />
-              <label class="label_orange" for="radio_orange">Orange</label>
-              <div class="content content_orange">
-                <span class="picto"></span>
-                <h1>Orange</h1>
-                <p>The orange is the fruit of the citrus species Citrus × sinensis in the family Rutaceae.</p>
-              </div>
-            </li>
-            <li class="item">
-              <input type="radio" id="radio_orange" name="basic_carousel" value="orange" />
-              <label class="label_orange" for="radio_orange">Orange</label>
-              <div class="content content_orange">
-                <span class="picto"></span>
-                <h1>Orange</h1>
-                <p>The orange is the fruit of the citrus species Citrus × sinensis in the family Rutaceae.</p>
-              </div>
-            </li>
-          </ul>
+          <ul id="list" class="list"></ul>
         </div>
         <div id="middle-border"></div>
         <div id="right-zone"></div>
@@ -622,6 +558,48 @@
       document.getElementById("menu-toggle").addEventListener("click", function () {
         document.querySelector(".nav-links").classList.toggle("show");
       });
+
+     function initCarousel() {
+        const projectSamples = [
+          {
+            title: "eHub",
+            description: "A collaborative platform connecting students and professionals in the tech industry. Built with React, Node.js, and MongoDB.",
+            imageUrl: "ehub.png",
+          },
+          {
+            title: "Secure Messenger",
+            description: "An end-to-end encrypted messaging application prioritizing user privacy. Developed using Python and cryptography libraries.",
+            imageUrl: "securemessenger.png",
+          },
+          {
+            title: "Vulnerability Scanner",
+            description: "A tool for identifying and reporting security vulnerabilities in web applications. Built with Python and various security libraries.",
+            imageUrl: "vulnerabilityscanner.png",
+          },
+        ];
+
+        function displayProjects(projects) {
+          const projectsContainer = document.getElementById("list");
+          projectsContainer.innerHTML = ""; // Clear previous content
+          projects.forEach((project) => {
+            const projectLi = document.createElement("li");
+            projectLi.classList.add("item");
+            projectLi.innerHTML = `
+              <input type="radio" id="${project.title.toLowerCase()}" name="basic_carousel" value="${project.title}"/>
+              <label for="${project.title.toLowerCase()}">${project.title}</label>
+              <div class="content content_orange">
+                <h1>${project.title}</h1>
+                <p>${project.description}</p>
+              </div>
+            `;
+            projectsContainer.appendChild(projectLi);
+          });
+        }
+
+        displayProjects(projectSamples);
+      }
+
+      initCarousel();
 
     </script>
   </body>
